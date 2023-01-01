@@ -1,33 +1,38 @@
-import React, { useState } from "react";
-import axios from "axios";
-function Search() {
-  const [searchText, setSearchText] = useState("");
-  const options = {
-    method: "GET",
-    url: "https://web-search24.p.rapidapi.com/",
-    params: { query: "Ronaldo images", max: "100", proxy: "US" },
-    headers: {
-      "X-RapidAPI-Key": "8c674c8142msh7863ff6735b6f00p180523jsndfa3f1736430",
-      "X-RapidAPI-Host": "web-search24.p.rapidapi.com",
-    },
-  };
+import React, { useContext, useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
+import { StateContext } from "../Context/StateContextProvider";
 
-  const handleRequest = () => {
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
+// import { useStateContext } from "../Context/StateContextProvider";
+
+const Search = () => {
+  const { setSearchTerm } = useContext(StateContext);
+  const [text, setText] = useState("Elon Musk");
+  const [debouncedValue] = useDebounce(text, 300);
+
+  useEffect(() => {
+    if (debouncedValue) setSearchTerm(debouncedValue);
+  }, [debouncedValue]);
+
   return (
-    <div>
-      {/* <input type="text" value={searchText} /> */}
-      <button onClick={handleRequest}>Click me</button>
+    <div className="relative sm:ml-48 md:ml-72 sm:-mt-10 mt-3">
+      <input
+        value={text}
+        type="text"
+        className="sm:w-96 w-80 h-10 dark:bg-gray-200  border rounded-full shadow-sm outline-none p-6 text-black hover:shadow-lg"
+        placeholder="🔎 Search Google or type URL"
+        onChange={(e) => setText(e.target.value)}
+      />
+      {text !== "" && (
+        <button
+          type="button"
+          className="absolute top-1.5 right-4 text-2xl text-gray-500 "
+          onClick={() => setText("")}
+        >
+          x
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export default Search;

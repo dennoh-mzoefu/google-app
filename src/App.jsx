@@ -7,7 +7,7 @@ import Footer from "./Components/Footer";
 
 function App() {
   const [darkTheme, setDarkTheme] = useState(false);
-
+  console.log("app");
   return (
     <BrowserRouter>
       <div className={darkTheme ? "dark" : ""}>

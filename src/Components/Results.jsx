@@ -44,7 +44,7 @@ function Results() {
   return (
     <div className="mx-16">
       <div className="flex justify-around">
-        <div>
+        <div className="min-h-screen">
           <h4 className="text-slate-400 underline ">
             About&nbsp;
             {results?.data?.results?.length}&nbsp;results on {searchTerm}

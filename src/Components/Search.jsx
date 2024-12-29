@@ -6,7 +6,7 @@ import { StateContext } from "../Context/StateContextProvider";
 
 const Search = () => {
   const { setSearchTerm, getResults } = useContext(StateContext);
-  const [text, setText] = useState("Elon Musk");
+  const [text, setText] = useState("mother teresa");
   const [debouncedValue] = useDebounce(text, 300);
 
   useEffect(() => {
